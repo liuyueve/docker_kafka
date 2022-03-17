@@ -1,0 +1,40 @@
+version: '2.2'
+services:
+  kafka_0:
+    image: kafka:3.1.0
+    container_name: kafka_0
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./kafka_config/broker_0/server.properties:/usr/local/kafka/config/server.properties
+    networks:
+      - kafka_net
+  kafka_1:
+    image: kafka:3.1.0
+    container_name: kafka_1
+    ports:
+      - "9093:9092"
+    volumes:
+      - ./kafka_config/broker_1/server.properties:/usr/local/kafka/config/server.properties
+    networks:
+      - kafka_net
+  kafka_2:
+    image: kafka:3.1.0
+    container_name: kafka_2
+    ports:
+      - "9094:9092"
+    volumes:
+      - ./kafka_config/broker_2/server.properties:/usr/local/kafka/config/server.properties
+    networks:
+      - kafka_net
+  zookeeper_test:
+    image: zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka_net
+
+networks:
+  kafka_net:
+    driver: bridge
